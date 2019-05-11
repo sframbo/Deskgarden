@@ -12,6 +12,7 @@ public class TestMain {
 		yesList.add("Discord.exe");
 		noList.add("firefox.exe");
 		testParser.setBlackList(noList);
+		testParser.setWhiteList(yesList);
 		int score = 0;
 		for(int i = 0; i < 20; i++) {
 			System.out.println(score);
@@ -19,7 +20,7 @@ public class TestMain {
 			score -= testParser.checkBlackList();
 			score += testParser.checkWhiteList();
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(30000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
