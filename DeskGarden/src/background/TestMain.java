@@ -16,7 +16,7 @@ public class TestMain {
 		for(int i = 0; i < 20; i++) {
 			System.out.println(score);
 			testParser.updateList();
-			score += testParser.checkBlackList();
+			score -= testParser.checkBlackList();
 			score += testParser.checkWhiteList();
 			try {
 				Thread.sleep(1000);
