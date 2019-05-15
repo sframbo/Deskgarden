@@ -6,6 +6,7 @@ public class Plant {
 	private int animalAttract;
 	private int hp;
 	private String type;
+	private int growthStage;
 	
 	public Plant(String type, int growthTime, float rarity, int animalAttract, int hp) {
 		this.type = type;
@@ -13,6 +14,7 @@ public class Plant {
 		this.rarity = rarity;
 		this.animalAttract = animalAttract;
 		this.hp = hp;
+		this.growthStage = 0;
 	}
 	public int getGrowthTime() {
 		return growthTime;
@@ -43,6 +45,12 @@ public class Plant {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public int getGrowthStage() {
+		return growthStage;
+	}
+	public void setGrowthStage(int growthStage) {
+		this.growthStage = growthStage;
 	}
 
 }
