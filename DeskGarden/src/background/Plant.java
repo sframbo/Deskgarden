@@ -34,10 +34,10 @@ public class Plant {
 	public void setAnimalAttract(int animalAttract) {
 		this.animalAttract = animalAttract;
 	}
-	public int getHp() {
+	public int getHP() {
 		return hp;
 	}
-	public void setHp(int hp) {
+	public void setHP(int hp) {
 		this.hp = hp;
 	}
 	public String getType() {
