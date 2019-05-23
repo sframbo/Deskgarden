@@ -18,7 +18,7 @@ public class Biome {
 		if(biomeType <= lastType) {
 			this.setBiomeType(biomeType);
 		}else {
-			this.setBiomeType(0);
+			this.setBiomeType(Biome.PLAINS);
 		}		
 	}
 
