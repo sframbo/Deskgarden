@@ -7,14 +7,20 @@ public class Plant {
 	private int hp;
 	private String type;
 	private int growthStage;
+	private int growPoint;
+	private int growThresh;
+	private int growCap;
 	
-	public Plant(String type, int growthTime, float rarity, int animalAttract, int hp) {
+	public Plant(String type, int growthTime, float rarity, int animalAttract, int hp, int growThresh, int growCap) {
 		this.type = type;
 		this.growthTime = growthTime;
 		this.rarity = rarity;
 		this.animalAttract = animalAttract;
 		this.hp = hp;
 		this.growthStage = 0;
+		this.growPoint = 0;
+		this.growThresh = growThresh;
+		this.growCap = growCap;
 	}
 	public int getGrowthTime() {
 		return growthTime;
@@ -52,5 +58,32 @@ public class Plant {
 	public void setGrowthStage(int growthStage) {
 		this.growthStage = growthStage;
 	}
-
+	public int getGrowPoint() {
+		return growPoint;
+	}
+	public void setGrowPoint(int growPoint) {
+		this.growPoint = growPoint;
+	}
+	public void grow(int amt) {
+		if(amt > 0) {
+			this.growPoint+=amt;
+			if(growPoint > growThresh && growthStage < growCap) {
+				this.growPoint = 0;
+				this.growthStage++;
+			}
+		}else {
+			if(this.hp > 0)
+			this.hp-=amt;
+		}
+		
+	}
+	public int getGrowThresh() {
+		return growThresh;
+	}
+	public void setGrowThresh(int growThresh) {
+		this.growThresh = growThresh;
+	}
+	public int getGrowCap() {
+		return growCap;
+	}
 }

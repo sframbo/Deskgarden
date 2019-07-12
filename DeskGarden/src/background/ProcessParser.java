@@ -15,7 +15,13 @@ public class ProcessParser {
 		this.whiteList = new ArrayList<String>();
 		this.updateList();
 	}
-	//sets list to lower case letters, qol improvement
+	
+	public ProcessParser(ArrayList<String> blackList, ArrayList<String> whiteList) {
+		this.blackList = blackList;
+		this.whiteList = whiteList;
+		this.updateList();
+	}
+	//sets List to lower case letters, qol improvement
 	private ArrayList<String> setLowerCase(ArrayList<String> input){
 		ArrayList<String> output = new ArrayList<String>();
 		for(int i = 0; i < input.size(); i++) {
@@ -24,11 +30,11 @@ public class ProcessParser {
 		return output;
 	}
 	//getters/setters
-	public void setBlackList(ArrayList<String> list) {
-		this.blackList = setLowerCase(list);
+	public void setBlackList(ArrayList<String> List) {
+		this.blackList = setLowerCase(List);
 	}
-	public void setWhiteList(ArrayList<String> list) {
-		this.whiteList = setLowerCase(list);
+	public void setWhiteList(ArrayList<String> List) {
+		this.whiteList = setLowerCase(List);
 	}
 	public ArrayList<String> getBlackList(){
 		return this.blackList;
@@ -40,7 +46,7 @@ public class ProcessParser {
 		return this.processList;
 	}
 	
-	//check the list of currently running processes for entries from black list
+	//check the List of currently running processes for entries from black List
 	public int checkBlackList() {
 		int res = 0;
 		for(int i = 0; i < blackList.size(); i++) {
@@ -51,7 +57,7 @@ public class ProcessParser {
 		return res;
 	}
 	
-	//check the list of currently running processes for white list entries
+	//check the List of currently running processes for white List entries
 	public int checkWhiteList() {
 		int res = 0;
 		for(int i = 0; i < whiteList.size(); i++) {
@@ -75,13 +81,13 @@ public class ProcessParser {
 		}
 		return name.toLowerCase();
 	}
-	//update the list of currently running processes
+	//update the List of currently running processes
 	public void updateList() {
 		this.processList = new ArrayList<String>();
 		try {
 		    String line;
 		    Process p = Runtime.getRuntime().exec
-		    	    (System.getenv("windir") +"\\system32\\"+"tasklist.exe");
+		    	    (System.getenv("windir") +"\\system32\\"+"taskList.exe");
 		    BufferedReader input =
 		            new BufferedReader(new InputStreamReader(p.getInputStream()));
 		    while ((line = input.readLine()) != null) {

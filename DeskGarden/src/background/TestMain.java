@@ -14,8 +14,9 @@ public class TestMain {
 		testParser.setBlackList(noList);
 		testParser.setWhiteList(yesList);
 		int score = 0;
+		
 		for(int i = 0; i < 20; i++) {
-			System.out.println(score);
+			
 			testParser.updateList();
 			score -= testParser.checkBlackList();
 			score += testParser.checkWhiteList();

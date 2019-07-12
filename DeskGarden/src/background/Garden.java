@@ -8,32 +8,45 @@ public class Garden {
 	private String name;
 	private int hp;
 	private ArrayList<Plant> plants;
-	private ArrayList<String> whitelist;
-	private ArrayList<String> blacklist;
+	private ArrayList<String> whiteList;
+	private ArrayList<String> blackList;
+	private ProcessParser parser;
+	private int blackMult;
+	private int whiteMult;
+	private Weather weather;
 	
-	public Garden(String biome, String name, Plant plant, ArrayList<String> whitelist, ArrayList<String> blacklist) {
+	
+	public Garden(String biome, String name, Plant plant, ArrayList<String> whiteList, ArrayList<String> blackList, int blackMult, int whiteMult) {
 		this.name = name;
 		this.plants = new ArrayList<Plant>();
 		this.plants.add(plant);	
 		this.hp = plant.getHP();
-		this.whitelist = whitelist;
-		this.blacklist = blacklist;
+		this.whiteList = whiteList;
+		this.blackList = blackList;
 		this.biome = biome;
+		this.parser = new ProcessParser(blackList, whiteList);
+		this.blackMult = blackMult;
+		this.whiteMult = whiteMult;
+		this.weather = new Weather(Weather.CLEAR);
 	}
-	public Garden(String biome, String name, ArrayList<Plant> plants, ArrayList<String> whitelist, ArrayList<String> blacklist) {
+	public Garden(String biome, String name, ArrayList<Plant> plants, ArrayList<String> whiteList, ArrayList<String> blackList, int blackMult, int whiteMult) {
 		this.name = name;
-		this.whitelist = whitelist;
-		this.blacklist = blacklist;
+		this.whiteList = whiteList;
+		this.blackList = blackList;
 		this.biome = biome;
 		this.plants = plants;
 		this.hp = 0;
+		this.parser = new ProcessParser(blackList, whiteList);
 		this.calcHP();
+		this.blackMult = blackMult;
+		this.whiteMult = whiteMult;
+		this.weather = new Weather(Weather.CLEAR);
 	}
-	public void syncWhitelist(Garden other) {
-		this.whitelist = other.getWhitelist();
+	public void syncWhiteList(Garden other) {
+		this.whiteList = other.getWhiteList();
 	}
-	public void syncBlacklist(Garden other) {
-		this.blacklist = other.getBlacklist();
+	public void syncBlackList(Garden other) {
+		this.blackList = other.getBlackList();
 	}
 	public void addPlant(Plant plant) {
 		this.plants.add(plant);
@@ -87,20 +100,36 @@ public class Garden {
 		this.plants = plants;
 	}
 
-	public ArrayList<String> getWhitelist() {
-		return whitelist;
+	public ArrayList<String> getWhiteList() {
+		return whiteList;
 	}
 
-	public void setWhitelist(ArrayList<String> whitelist) {
-		this.whitelist = whitelist;
+	public void setWhiteList(ArrayList<String> whiteList) {
+		this.whiteList = whiteList;
 	}
 
-	public ArrayList<String> getBlacklist() {
-		return blacklist;
+	public ArrayList<String> getBlackList() {
+		return blackList;
 	}
 
-	public void setBlacklist(ArrayList<String> blacklist) {
-		this.blacklist = blacklist;
+	public void setBlackList(ArrayList<String> blackList) {
+		this.blackList = blackList;
 	}
 
+	public void update() {
+		int white = this.parser.checkWhiteList();
+		int black = this.parser.checkBlackList();
+		int score = white*whiteMult - black*blackMult;
+		for(int i = 0; i < this.plants.size(); i++) {
+			plants.get(i).grow(score);
+		}
+		this.calcHP();
+		this.weather.update();
+	}
+	public Weather getWeather() {
+		return weather;
+	}
+	public void setWeather(Weather weather) {
+		this.weather = weather;
+	}
 }
