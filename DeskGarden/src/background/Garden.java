@@ -29,6 +29,19 @@ public class Garden {
 		this.whiteMult = whiteMult;
 		this.weather = new Weather(Weather.CLEAR);
 	}
+	public Garden(Biome biome, String name, Plant plant, ArrayList<String> whiteList, ArrayList<String> blackList) {
+		this.name = name;
+		this.plants = new ArrayList<Plant>();
+		this.plants.add(plant);	
+		this.hp = plant.getHP();
+		this.whiteList = whiteList;
+		this.blackList = blackList;
+		this.biome = biome;
+		this.parser = new ProcessParser(blackList, whiteList);
+		this.blackMult = 1;
+		this.whiteMult = 1;
+		this.weather = new Weather(Weather.CLEAR);
+	}
 	public Garden(Biome biome, String name, ArrayList<Plant> plants, ArrayList<String> whiteList, ArrayList<String> blackList, int blackMult, int whiteMult) {
 		this.name = name;
 		this.whiteList = whiteList;
@@ -40,6 +53,19 @@ public class Garden {
 		this.calcHP();
 		this.blackMult = blackMult;
 		this.whiteMult = whiteMult;
+		this.weather = new Weather(Weather.CLEAR);
+	}
+	public Garden(Biome biome, String name, ArrayList<Plant> plants, ArrayList<String> whiteList, ArrayList<String> blackList) {
+		this.name = name;
+		this.whiteList = whiteList;
+		this.blackList = blackList;
+		this.biome = biome;
+		this.plants = plants;
+		this.hp = 0;
+		this.parser = new ProcessParser(blackList, whiteList);
+		this.calcHP();
+		this.blackMult = 1;
+		this.whiteMult = 1;
 		this.weather = new Weather(Weather.CLEAR);
 	}
 	public void syncWhiteList(Garden other) {
@@ -121,10 +147,11 @@ public class Garden {
 		int black = this.parser.checkBlackList();
 		int score = white*whiteMult - black*blackMult;
 		for(int i = 0; i < this.plants.size(); i++) {
-			plants.get(i).grow(score);
+			plants.get(i).update(score);
 		}
 		this.calcHP();
 		this.weather.update();
+		this.parser.updateList();
 	}
 	
 	public Weather getWeather() {

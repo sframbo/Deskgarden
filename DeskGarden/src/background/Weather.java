@@ -43,8 +43,10 @@ public class Weather{
 				int clrChk = rand.nextInt(CAP);
 				if(clrChk < CLEARTHRESH) {
 					setWeatherType(CLEAR);
+					timer = 0;
 				}else {
-					setWeatherType(rand.nextInt(LAST_TYPE + 1));					
+					setWeatherType(rand.nextInt(LAST_TYPE + 1));	
+					timer = 0;
 				}
 				
 			}
@@ -54,5 +56,29 @@ public class Weather{
 	
 	public void setWeatherType(int weatherType) {
 		this.weatherType = weatherType;
+	}
+
+	@Override
+	public String toString() {
+		switch(this.weatherType) {
+			case 0:
+				return "CLEAR";
+			case 1:
+				return "DRIZZLE";
+			case 2:
+				return "RAINSTORM";
+			case 3:
+				return "MONSOON";
+			case 4: 
+				return "FLURRIES";
+			case 5: 
+				return "SNOWFALL";
+			case 6:
+				return "BLIZZARD";
+			case 7:
+				return "CLOUDY";
+			default:
+				return "WEATHER_ERROR";
+		}
 	}
 }

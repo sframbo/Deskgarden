@@ -5,18 +5,18 @@ public class Plant {
 	private int rarity;
 	private int animalAttract;
 	private int hp;
-	private int type;
 	private int growthStage;
 	private int growPoint;
 	private int growThresh;
 	private int growCap;
+	private int maxHP;
 	
-	public Plant(int type, int growthTime, int rarity, int animalAttract, int hp, int growThresh, int growCap) {
-		this.type = type;
+	public Plant(int growthTime, int rarity, int animalAttract, int hp, int growThresh, int growCap) {
 		this.growthTime = growthTime;
 		this.rarity = rarity;
 		this.animalAttract = animalAttract;
 		this.hp = hp;
+		this.maxHP = hp;
 		this.growthStage = 0;
 		this.growPoint = 0;
 		this.growThresh = growThresh;
@@ -46,12 +46,6 @@ public class Plant {
 	public void setHP(int hp) {
 		this.hp = hp;
 	}
-	public int getType() {
-		return type;
-	}
-	public void setType(int type) {
-		this.type = type;
-	}
 	public int getGrowthStage() {
 		return growthStage;
 	}
@@ -64,16 +58,25 @@ public class Plant {
 	public void setGrowPoint(int growPoint) {
 		this.growPoint = growPoint;
 	}
-	public void grow(int amt) {
-		if(amt > 0) {
+	public void update(int amt) {
+		if(amt > 0 && this.hp > 0) {
 			this.growPoint+=amt;
+			if(this.hp < this.maxHP) {
+				this.hp+=amt;
+			}
 			if(growPoint > growThresh && growthStage < growCap) {
 				this.growPoint = 0;
 				this.growthStage++;
 			}
 		}else {
-			if(this.hp > 0)
-			this.hp-=amt;
+			if(this.hp > 0) {
+				this.hp+=amt;
+				if(this.hp < 0) {
+					this.hp = 0;
+				}
+			}
+
+			
 		}
 		
 	}
@@ -85,5 +88,11 @@ public class Plant {
 	}
 	public int getGrowCap() {
 		return growCap;
+	}
+	public int getMaxHP() {
+		return maxHP;
+	}
+	public void setMaxHP(int maxHP) {
+		this.maxHP = maxHP;
 	}
 }
