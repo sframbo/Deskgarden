@@ -2,16 +2,16 @@ package background;
 
 public class Plant {
 	private int growthTime;
-	private float rarity;
+	private int rarity;
 	private int animalAttract;
 	private int hp;
-	private String type;
+	private int type;
 	private int growthStage;
 	private int growPoint;
 	private int growThresh;
 	private int growCap;
 	
-	public Plant(String type, int growthTime, float rarity, int animalAttract, int hp, int growThresh, int growCap) {
+	public Plant(int type, int growthTime, int rarity, int animalAttract, int hp, int growThresh, int growCap) {
 		this.type = type;
 		this.growthTime = growthTime;
 		this.rarity = rarity;
@@ -28,10 +28,10 @@ public class Plant {
 	public void setGrowthTime(int growthTime) {
 		this.growthTime = growthTime;
 	}
-	public float getRarity() {
+	public int getRarity() {
 		return rarity;
 	}
-	public void setRarity(float rarity) {
+	public void setRarity(int rarity) {
 		this.rarity = rarity;
 	}
 	public int getAnimalAttract() {
@@ -46,10 +46,10 @@ public class Plant {
 	public void setHP(int hp) {
 		this.hp = hp;
 	}
-	public String getType() {
+	public int getType() {
 		return type;
 	}
-	public void setType(String type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 	public int getGrowthStage() {

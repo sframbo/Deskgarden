@@ -10,12 +10,12 @@ public class Biome {
 	public static final int CITY = 6;
 	public static final int RIVER = 7;
 	
-	private int lastType = 7;
+	public static final int LAST_TYPE= 7;
 	
 	private int biomeType;
 	
 	public Biome(int biomeType) {
-		if(biomeType <= lastType) {
+		if(biomeType <= LAST_TYPE) {
 			this.setBiomeType(biomeType);
 		}else {
 			this.setBiomeType(Biome.PLAINS);

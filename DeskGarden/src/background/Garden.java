@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Garden {
 	
-	private String biome;
+	private Biome biome;
 	private String name;
 	private int hp;
 	private ArrayList<Plant> plants;
@@ -16,7 +16,7 @@ public class Garden {
 	private Weather weather;
 	
 	
-	public Garden(String biome, String name, Plant plant, ArrayList<String> whiteList, ArrayList<String> blackList, int blackMult, int whiteMult) {
+	public Garden(Biome biome, String name, Plant plant, ArrayList<String> whiteList, ArrayList<String> blackList, int blackMult, int whiteMult) {
 		this.name = name;
 		this.plants = new ArrayList<Plant>();
 		this.plants.add(plant);	
@@ -29,7 +29,7 @@ public class Garden {
 		this.whiteMult = whiteMult;
 		this.weather = new Weather(Weather.CLEAR);
 	}
-	public Garden(String biome, String name, ArrayList<Plant> plants, ArrayList<String> whiteList, ArrayList<String> blackList, int blackMult, int whiteMult) {
+	public Garden(Biome biome, String name, ArrayList<Plant> plants, ArrayList<String> whiteList, ArrayList<String> blackList, int blackMult, int whiteMult) {
 		this.name = name;
 		this.whiteList = whiteList;
 		this.blackList = blackList;
@@ -68,11 +68,11 @@ public class Garden {
 		}
 		this.hp = gardenHealth;
 	}
-	public String getBiome() {
+	public Biome getBiome() {
 		return biome;
 	}
 
-	public void setBiome(String biome) {
+	public void setBiome(Biome biome) {
 		this.biome = biome;
 	}
 
@@ -126,6 +126,7 @@ public class Garden {
 		this.calcHP();
 		this.weather.update();
 	}
+	
 	public Weather getWeather() {
 		return weather;
 	}

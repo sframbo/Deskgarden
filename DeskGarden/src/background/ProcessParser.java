@@ -91,6 +91,7 @@ public class ProcessParser {
 		    BufferedReader input =
 		            new BufferedReader(new InputStreamReader(p.getInputStream()));
 		    while ((line = input.readLine()) != null) {
+		    	if(!this.processList.contains(this.parseString(line)))
 		        this.processList.add(this.parseString(line));
 		    }
 		    input.close();

@@ -13,8 +13,9 @@ public class Weather{
 	public static final int CLOUDY = 7;
 	public static final int MIN_DURATION = 10;
 	public static final int LAST_TYPE = 7;
-	public static final int THRESHOLD = 2;
-	public static final int CAP = 10;
+	private final int THRESHOLD = 2;
+	private final int CAP = 10;
+	private final int CLEARTHRESH = 4;
 	private int weatherType;
 	private int timer;
 	
@@ -32,13 +33,20 @@ public class Weather{
 	}
 	
 	public void update() {
+		//increase time spent as current weather
 		this.timer++;
+		//check to change weather type
 		if(this.timer > MIN_DURATION) {
 			Random rand = new Random();
 			int chk = rand.nextInt(CAP);
 			if (chk < THRESHOLD) {
 				int clrChk = rand.nextInt(CAP);
-				int newType = rand.nextInt(LAST_TYPE);
+				if(clrChk < CLEARTHRESH) {
+					setWeatherType(CLEAR);
+				}else {
+					setWeatherType(rand.nextInt(LAST_TYPE + 1));					
+				}
+				
 			}
 
 		}
