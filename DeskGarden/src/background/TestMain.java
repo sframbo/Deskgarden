@@ -9,19 +9,16 @@ public class TestMain {
 		ArrayList<String> yesList = new ArrayList<String>();
 		yesList.add("discord.exe");	
 		yesList.add("eclipse.exe");
-		yesList.add("fl64.exe");
-		
+
 		noList.add("firefox.exe");
-		noList.add("steam.exe");
 		
 		int growCap = 4;
-		int growThresh = 10;
+		int growThresh = 5;
 		int animalAttract = 0;
-		int growthTime = 3;
 		int rarity = 1;
 		int hp = 200;
-		Plant plant = new Plant(growthTime,rarity,animalAttract, hp, growThresh, growCap);
-		Plant plant2 = new Plant(growthTime,rarity,animalAttract, hp, growThresh, growCap);
+		Plant plant = new Plant(rarity,animalAttract, hp, growThresh, growCap);
+		Plant plant2 = new Plant(rarity,animalAttract, hp-180, growThresh, growCap);
 		Biome biome = new Biome(Biome.FOREST);
 		
 		ArrayList<Plant> plantList = new ArrayList<Plant>();
@@ -30,7 +27,7 @@ public class TestMain {
 		
 		Garden garden = new Garden(biome, "TEST1", plant, yesList, noList);
 		//Garden garden = new Garden(biome, "TEST2", plant2, yesList, noList, 3, 1);
-		//Garden garden = new Garden(biome, "TEST3", plantList, yesList, noList);
+		//Garden garden = new Garden(biome, "TEST3", plantList, yesList, noList,4,1);
 		
 		for(int i = 0; i < 30; i++) {
 			garden.update();
@@ -39,7 +36,7 @@ public class TestMain {
 			
 			try {
 				//Thread.sleep(60000);
-				Thread.sleep(2000);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

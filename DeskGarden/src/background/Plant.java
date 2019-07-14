@@ -1,7 +1,6 @@
 package background;
 
 public class Plant {
-	private int growthTime;
 	private int rarity;
 	private int animalAttract;
 	private int hp;
@@ -11,8 +10,18 @@ public class Plant {
 	private int growCap;
 	private int maxHP;
 	
-	public Plant(int growthTime, int rarity, int animalAttract, int hp, int growThresh, int growCap) {
-		this.growthTime = growthTime;
+	public Plant(){
+		this.rarity = 1;
+		this.animalAttract = 1;
+		this.hp = 1;
+		this.growthStage = 1;
+		this.growPoint = 0;
+		this.growThresh = 1;
+		this.growCap = 1;
+		this.maxHP = 1;
+	}
+	
+	public Plant(int rarity, int animalAttract, int hp, int growThresh, int growCap) {
 		this.rarity = rarity;
 		this.animalAttract = animalAttract;
 		this.hp = hp;
@@ -22,12 +31,7 @@ public class Plant {
 		this.growThresh = growThresh;
 		this.growCap = growCap;
 	}
-	public int getGrowthTime() {
-		return growthTime;
-	}
-	public void setGrowthTime(int growthTime) {
-		this.growthTime = growthTime;
-	}
+
 	public int getRarity() {
 		return rarity;
 	}
@@ -88,6 +92,9 @@ public class Plant {
 	}
 	public int getGrowCap() {
 		return growCap;
+	}
+	public void setGrowCap(int growCap) {
+		this.growCap = growCap;
 	}
 	public int getMaxHP() {
 		return maxHP;
