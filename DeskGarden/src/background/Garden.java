@@ -13,7 +13,6 @@ public class Garden {
 	private ProcessParser parser;
 	private int blackMult;
 	private int whiteMult;
-	private Weather weather;
 	
 	
 	public Garden(Biome biome, String name, Plant plant, ArrayList<String> whiteList, ArrayList<String> blackList, int blackMult, int whiteMult) {
@@ -27,7 +26,6 @@ public class Garden {
 		this.parser = new ProcessParser(blackList, whiteList);
 		this.blackMult = blackMult;
 		this.whiteMult = whiteMult;
-		this.weather = new Weather(Weather.CLEAR);
 	}
 	public Garden(Biome biome, String name, Plant plant, ArrayList<String> whiteList, ArrayList<String> blackList) {
 		this.name = name;
@@ -40,7 +38,6 @@ public class Garden {
 		this.parser = new ProcessParser(blackList, whiteList);
 		this.blackMult = 1;
 		this.whiteMult = 1;
-		this.weather = new Weather(Weather.CLEAR);
 	}
 	public Garden(Biome biome, String name, ArrayList<Plant> plants, ArrayList<String> whiteList, ArrayList<String> blackList, int blackMult, int whiteMult) {
 		this.name = name;
@@ -53,7 +50,6 @@ public class Garden {
 		this.calcHP();
 		this.blackMult = blackMult;
 		this.whiteMult = whiteMult;
-		this.weather = new Weather(Weather.CLEAR);
 	}
 	public Garden(Biome biome, String name, ArrayList<Plant> plants, ArrayList<String> whiteList, ArrayList<String> blackList) {
 		this.name = name;
@@ -66,7 +62,6 @@ public class Garden {
 		this.calcHP();
 		this.blackMult = 1;
 		this.whiteMult = 1;
-		this.weather = new Weather(Weather.CLEAR);
 	}
 	public void syncWhiteList(Garden other) {
 		this.whiteList = other.getWhiteList();
@@ -150,14 +145,11 @@ public class Garden {
 			plants.get(i).update(score);
 		}
 		this.calcHP();
-		this.weather.update();
+		this.biome.update();
 		this.parser.updateList();
 	}
 	
 	public Weather getWeather() {
-		return weather;
-	}
-	public void setWeather(Weather weather) {
-		this.weather = weather;
+		return this.biome.getWeather();
 	}
 }

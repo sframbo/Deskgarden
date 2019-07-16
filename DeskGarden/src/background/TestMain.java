@@ -19,7 +19,7 @@ public class TestMain {
 		int hp = 200;
 		Plant plant = new Plant(rarity,animalAttract, hp, growThresh, growCap);
 		Plant plant2 = new Plant(rarity,animalAttract, hp-180, growThresh, growCap);
-		Biome biome = new Biome(Biome.FOREST);
+		Biome biome = new Biome(Biome.DESERT);
 		
 		ArrayList<Plant> plantList = new ArrayList<Plant>();
 		plantList.add(plant);
@@ -29,14 +29,14 @@ public class TestMain {
 		//Garden garden = new Garden(biome, "TEST2", plant2, yesList, noList, 3, 1);
 		//Garden garden = new Garden(biome, "TEST3", plantList, yesList, noList,4,1);
 		
-		for(int i = 0; i < 30; i++) {
+		for(int i = 0; i < 800; i++) {
 			garden.update();
 			System.out.println(i + ": HP: " + garden.getHp() + " GRPNT: " + garden.getPlants().get(0).getGrowPoint() + 
 					" GRSTG: " + garden.getPlants().get(0).getGrowthStage() + " WEATHER: " + garden.getWeather().toString());
 			
 			try {
 				//Thread.sleep(60000);
-				Thread.sleep(1000);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
