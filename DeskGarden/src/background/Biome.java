@@ -15,6 +15,7 @@ public class Biome {
 	public static final int LAST_TYPE= 7;
 	
 	private final int RARETHRESH = 2;
+	private final int MTNTHRESH = 6;
 	private final int CAP = 10;
 	
 	private int biomeType;
@@ -24,8 +25,8 @@ public class Biome {
 		this.weather = new Weather(Weather.CLEAR);
 		if(biomeType <= LAST_TYPE) {
 			this.setBiomeType(biomeType);
-		}else {
-			this.setBiomeType(Biome.PLAINS);
+		}else { 
+			this.setBiomeType(Biome.FOREST) ;
 		}		
 	}
 
@@ -54,6 +55,21 @@ public class Biome {
 						this.weather.setWeatherType(Weather.CLEAR);
 					}
 				}
+				break;
+			case Biome.MOUNTAIN:
+				if(this.weather.getWeatherType() == Weather.FLURRIES) {
+					Random rand = new Random();
+					if(rand.nextInt(CAP) > MTNTHRESH) {
+						this.weather.setWeatherType(Weather.SNOWFALL);
+					}
+				}
+				if(this.weather.getWeatherType() == Weather.DRIZZLE) {
+					Random rand = new Random(); 
+					if(rand.nextInt(CAP) > MTNTHRESH) {
+						this.weather.setWeatherType(Weather.FLURRIES);
+					}
+				}
+				
 				break;
 			case Biome.TROPICAL_ISLAND:
 			case Biome.JUNGLE:

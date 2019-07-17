@@ -60,6 +60,7 @@ public class Plant {
 		return growPoint;
 	}
 	public void setGrowPoint(int growPoint) {
+		if(growPoint > 0)
 		this.growPoint = growPoint;
 	}
 	public void update(int amt) {
