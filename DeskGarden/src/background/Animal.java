@@ -4,9 +4,16 @@ public class Animal {
 	
 	private final int DEFDURA = 10;
 	private final int DEFRAR = 10;
+	private final int DEFHP = 10;
 	private int duration;
 	private int startHP;
 	int rarity;
+	
+	public Animal() {
+		this.setDuration(DEFDURA);
+		this.setStartHP(DEFHP);
+		this.rarity = DEFRAR;
+	}
 	
 	public Animal(int startHP) {
 		this.setDuration(DEFDURA);
@@ -17,7 +24,9 @@ public class Animal {
 	public int getStartHP() {
 		return startHP;
 	}
-
+	public int getRarity() {
+		return rarity;
+	}
 	public void setStartHP(int startHP) {
 		this.startHP = startHP;
 	}

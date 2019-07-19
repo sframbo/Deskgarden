@@ -1,6 +1,7 @@
 package background;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Garden {
 	
@@ -10,9 +11,13 @@ public class Garden {
 	private ArrayList<Plant> plants;
 	private ArrayList<String> whiteList;
 	private ArrayList<String> blackList;
+	private ArrayList<Animal> animals;
 	private ProcessParser parser;
 	private int blackMult;
 	private int whiteMult;
+	
+	private final int MAXANI = 10;
+	private final int MAXATT = 40;
 	
 	
 	public Garden(Biome biome, String name, Plant plant, ArrayList<String> whiteList, ArrayList<String> blackList, int blackMult, int whiteMult) {
@@ -26,6 +31,7 @@ public class Garden {
 		this.parser = new ProcessParser(blackList, whiteList);
 		this.blackMult = blackMult;
 		this.whiteMult = whiteMult;
+		this.animals = new ArrayList<Animal>();
 	}
 	public Garden(Biome biome, String name, Plant plant, ArrayList<String> whiteList, ArrayList<String> blackList) {
 		this.name = name;
@@ -38,6 +44,7 @@ public class Garden {
 		this.parser = new ProcessParser(blackList, whiteList);
 		this.blackMult = 1;
 		this.whiteMult = 1;
+		this.animals = new ArrayList<Animal>();
 	}
 	public Garden(Biome biome, String name, ArrayList<Plant> plants, ArrayList<String> whiteList, ArrayList<String> blackList, int blackMult, int whiteMult) {
 		this.name = name;
@@ -50,6 +57,7 @@ public class Garden {
 		this.calcHP();
 		this.blackMult = blackMult;
 		this.whiteMult = whiteMult;
+		this.animals = new ArrayList<Animal>();
 	}
 	public Garden(Biome biome, String name, ArrayList<Plant> plants, ArrayList<String> whiteList, ArrayList<String> blackList) {
 		this.name = name;
@@ -62,6 +70,7 @@ public class Garden {
 		this.calcHP();
 		this.blackMult = 1;
 		this.whiteMult = 1;
+		this.animals = new ArrayList<Animal>();
 	}
 	public void syncWhiteList(Garden other) {
 		this.whiteList = other.getWhiteList();
@@ -136,7 +145,23 @@ public class Garden {
 	public void setBlackList(ArrayList<String> blackList) {
 		this.blackList = blackList;
 	}
-
+	
+	private boolean chkAnimal() {
+		if(this.animals.size() == MAXANI) {
+			return false;
+		}
+		int rarSum = 0;
+		for(int i = 0; i < this.plants.size(); i++) {
+			rarSum+=plants.get(i).getAnimalAttract();
+		}
+		if(rarSum > MAXATT) {
+			rarSum = MAXATT;
+		}
+		Random rand = new Random();
+		int chk = rand.nextInt();
+		return chk < rarSum;		
+	}
+	
 	public void update() {
 		int white = this.parser.checkWhiteList();
 		int black = this.parser.checkBlackList();
@@ -145,11 +170,23 @@ public class Garden {
 			plants.get(i).update(score);
 		}
 		this.calcHP();
-		this.biome.update();
+		boolean chkSpawn = chkAnimal();
+		if(chkSpawn) {
+			this.biome.update(chkSpawn);
+		}else {
+			this.biome.update(chkSpawn);
+		}
+		
 		this.parser.updateList();
 	}
 	
 	public Weather getWeather() {
 		return this.biome.getWeather();
+	}
+	public ArrayList<Animal> getAnimals() {
+		return animals;
+	}
+	public void setAnimals(ArrayList<Animal> animals) {
+		this.animals = animals;
 	}
 }
