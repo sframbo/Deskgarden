@@ -18,6 +18,7 @@ public class Garden {
 	
 	private final int MAXANI = 10;
 	private final int MAXATT = 40;
+	private final int MAXRAND = 101;
 	
 	
 	public Garden(Biome biome, String name, Plant plant, ArrayList<String> whiteList, ArrayList<String> blackList, int blackMult, int whiteMult) {
@@ -147,36 +148,57 @@ public class Garden {
 	}
 	
 	private boolean chkAnimal() {
+		//make sure not to exceed number cap
 		if(this.animals.size() == MAXANI) {
 			return false;
 		}
+		//add up rarity values
 		int rarSum = 0;
 		for(int i = 0; i < this.plants.size(); i++) {
 			rarSum+=plants.get(i).getAnimalAttract();
 		}
+		//cap spawn rate to max amount
 		if(rarSum > MAXATT) {
 			rarSum = MAXATT;
 		}
+		//RNG to see if an animal is spawned
 		Random rand = new Random();
-		int chk = rand.nextInt();
+		int chk = rand.nextInt(MAXRAND);
 		return chk < rarSum;		
 	}
 	
+	
 	public void update() {
+		//check running process against lists
 		int white = this.parser.checkWhiteList();
 		int black = this.parser.checkBlackList();
 		int score = white*whiteMult - black*blackMult;
+		//apply score check to plants
 		for(int i = 0; i < this.plants.size(); i++) {
 			plants.get(i).update(score);
 		}
+		//determine garden health
 		this.calcHP();
+		//update list of animals
+		if(this.animals.size() > 0) {
+			for(int i = 0; i < this.animals.size(); i++) {
+				Animal chk = this.animals.get(i);
+				boolean keep = chk.update(this.getHp());
+				if(!keep) {
+					System.out.println("REMOVING: " + i + " " + this.animals.get(i));
+					this.animals.remove(i);
+				}
+			}
+		}
+		//determines if an animal is spawned, and if so, tells the biome to do so.
 		boolean chkSpawn = chkAnimal();
 		if(chkSpawn) {
-			this.biome.update(chkSpawn);
+			this.animals.add(new Animal(this.biome.update(chkSpawn)));
+			System.out.println("NEW ANIMAL: " + (this.animals.size()-1) + " " + this.animals.get(this.animals.size()-1));
 		}else {
 			this.biome.update(chkSpawn);
 		}
-		
+		//refresh process list	
 		this.parser.updateList();
 	}
 	

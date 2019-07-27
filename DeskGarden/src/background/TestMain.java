@@ -14,12 +14,12 @@ public class TestMain {
 		
 		int growCap = 4;
 		int growThresh = 5;
-		int animalAttract = 0;
-		int rarity = 1;
+		int animalAttract = 30;
+		int rarity = 20;
 		int hp = 200;
 		Plant plant = new Plant(rarity,animalAttract, hp, growThresh, growCap);
 		Plant plant2 = new Plant(rarity,animalAttract, hp-180, growThresh, growCap);
-		Biome biome = new Biome(Biome.DESERT);
+		Biome biome = new Biome(Biome.FOREST);
 		
 		ArrayList<Plant> plantList = new ArrayList<Plant>();
 		plantList.add(plant);
@@ -31,12 +31,10 @@ public class TestMain {
 		
 		for(int i = 0; i < 800; i++) {
 			garden.update();
-			System.out.println(i + ": HP: " + garden.getHp() + " GRPNT: " + garden.getPlants().get(0).getGrowPoint() + 
-					" GRSTG: " + garden.getPlants().get(0).getGrowthStage() + " WEATHER: " + garden.getWeather().toString());
-			
+			System.out.println(i + ": " + garden.getWeather());
 			try {
 				//Thread.sleep(60000);
-				Thread.sleep(10);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

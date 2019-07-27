@@ -23,7 +23,7 @@ public class Biome {
 	
 	private int biomeType;
 	private Weather weather;
-	private ArrayList<Animal> allowedAnimals;
+	private ArrayList<Integer> allowedAnimals;
 	
 	public Biome(int biomeType) {
 		this.weather = new Weather(Weather.CLEAR);
@@ -32,10 +32,11 @@ public class Biome {
 		}else { 
 			this.setBiomeType(Biome.FOREST) ;
 		}
-		this.allowedAnimals = new ArrayList<Animal>();
-		this.allowedAnimals.add(new Animal());
+		this.allowedAnimals = new ArrayList<Integer>();
 		switch(this.biomeType) {
 			case Biome.FOREST:
+				this.allowedAnimals.add(Animal.SQUIRREL);
+				this.allowedAnimals.add(Animal.RAVEN);
 				break;
 			case Biome.PLAINS:
 				break;
@@ -66,15 +67,18 @@ public class Biome {
 		return weather;
 	}
 	//Picks which animal to spawn from the biome's list of allowed animals
-	private Animal spawnAnimal() {
+	private int spawnAnimal() {
 		//Identify total animal rarity
 		int rarSum = 0;
-		//most common animal index location
-		int mostCommon = allowedAnimals.size()-1;
-		//sort allowed animal list by rarity
-		Collections.sort(allowedAnimals, new AnimalSort());
+		//Find most common Animal
+		int maxRar = 0;
+		int maxInd = 0;
 		for(int i = 0; i < allowedAnimals.size(); i++) {
-			int curRar = allowedAnimals.get(i).getRarity();
+			int curRar = Animal.getRarityOf(allowedAnimals.get(i));
+			if(curRar > maxRar) {
+				maxRar = curRar;
+				maxInd = i;
+			}
 			rarSum += curRar;
 		}
 		//divide chances into equal intervals
@@ -84,10 +88,10 @@ public class Biome {
 		int[] weights = new int[allowedAnimals.size()];
 		//assign weights
 		for(int i = 0; i < allowedAnimals.size(); i++) {
-			weights[i] = rarInterval * allowedAnimals.get(i).getRarity();
+			weights[i] = rarInterval * Animal.getRarityOf(allowedAnimals.get(i));
 		}
 		//apply remainder
-		weights[mostCommon]+=round;
+		weights[maxInd]+=round;
 		Random rand = new Random();
 		int spawnchk = rand.nextInt();
 		for(int i = 0; i < allowedAnimals.size(); i++) {
@@ -95,10 +99,12 @@ public class Biome {
 				return allowedAnimals.get(i);
 			}
 		}
-		return allowedAnimals.get(allowedAnimals.size()-1);
+		return allowedAnimals.get(maxInd);
 	}
 	
-	public Animal update(boolean aniSpawn) {
+	
+	
+	public int update(boolean aniSpawn) {
 		//Controls weather to appropriate biome type
 		this.weather.update();
 		switch(this.biomeType) {
@@ -137,7 +143,7 @@ public class Biome {
 		if(aniSpawn) {
 			return spawnAnimal();
 		}else {
-			return null;
+			return -1;
 		}
 	}
 }
