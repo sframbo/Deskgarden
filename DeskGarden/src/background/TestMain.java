@@ -17,8 +17,8 @@ public class TestMain {
 		int animalAttract = 30;
 		int rarity = 20;
 		int hp = 200;
-		Plant plant = new Plant(rarity,animalAttract, hp, growThresh, growCap);
-		Plant plant2 = new Plant(rarity,animalAttract, hp-180, growThresh, growCap);
+		Plant plant = new Plant(Plant.WILLOW);
+		Plant plant2 = new Plant(Plant.ROSE);
 		Biome biome = new Biome(Biome.FOREST);
 		
 		ArrayList<Plant> plantList = new ArrayList<Plant>();

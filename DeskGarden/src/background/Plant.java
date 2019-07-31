@@ -1,7 +1,22 @@
 package background;
 
 public class Plant {
+	public static final int ROSE = 0;
+	public static final String ROSE_NAME = "ROSE";
 	
+	public static final int WILLOW = 1;
+	public static final String WILLOW_NAME = "WILLOW";
+	
+	public static final int BASIL = 2;
+	public static final String BASIL_NAME = "BASIL";
+	
+	private final int DEFATT = 5;
+	private final int DEFTHRESH = 10;
+	private final int DEFHP = 20;
+	private final int GRO_STG_START = 1;
+	private final int GRO_PNT_START = 1;
+	private final int DEFCAP = 4;
+	private final int DEFRAR = 1;
 	
 	private int rarity;
 	private int animalAttract;
@@ -12,6 +27,7 @@ public class Plant {
 	private int growCap;
 	private int maxHP;
 	private int type;
+	private String name;
 	
 	public Plant(){
 		this.setRarity(1);
@@ -22,19 +38,37 @@ public class Plant {
 		this.setGrowPoint(1);
 		this.setGrowCap(1);
 		this.setMaxHP(1);
+		this.setType(Plant.ROSE);
+		this.setName(Plant.ROSE_NAME);
 	}
 	
-	public Plant(int rarity, int animalAttract, int hp, int growThresh, int growCap) {
-		this.rarity = rarity;
-		this.animalAttract = animalAttract;
-		this.hp = hp;
-		this.maxHP = hp;
-		this.growthStage = 0;
-		this.growPoint = 0;
-		this.growThresh = growThresh;
-		this.growCap = growCap;
-	}
 
+	public Plant(int type) {
+		this.setRarity(DEFRAR);
+		this.setAnimalAttract(DEFATT);
+		this.setHP(DEFHP);
+		this.setGrowthStage(GRO_STG_START);
+		this.setGrowPoint(GRO_PNT_START);
+		this.setGrowThresh(DEFTHRESH);
+		this.setGrowCap(DEFCAP);
+		this.setMaxHP(DEFHP);
+		this.setType(type);
+		switch(type) {
+			case Plant.ROSE:
+				this.setName(Plant.ROSE_NAME);
+				break;
+			case Plant.WILLOW:
+				this.setName(Plant.WILLOW_NAME);
+				break;
+			case Plant.BASIL:
+				this.setName(Plant.BASIL_NAME);
+				break;
+			default:
+				this.setName("ERROR_PLANT_NAME");
+		}
+		
+	}
+	
 	public int getRarity() {
 		return rarity;
 	}
@@ -113,5 +147,13 @@ public class Plant {
 
 	public void setType(int type) {
 		this.type = type;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

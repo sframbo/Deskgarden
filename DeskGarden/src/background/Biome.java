@@ -33,6 +33,7 @@ public class Biome {
 			this.setBiomeType(Biome.FOREST) ;
 		}
 		this.allowedAnimals = new ArrayList<Integer>();
+		//adds allowed animals to list based on biome type
 		switch(this.biomeType) {
 			case Biome.FOREST:
 				this.allowedAnimals.add(Animal.SQUIRREL);

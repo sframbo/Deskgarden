@@ -44,7 +44,7 @@ public class Weather{
 	public void update() {
 		//increase time spent as current weather
 		this.timer++;
-		//check to change weather type
+		//check to change weather type to next stages
 		if(this.timer > MIN_DURATION) {
 			this.timer = 0;
 			Random rand = new Random();			

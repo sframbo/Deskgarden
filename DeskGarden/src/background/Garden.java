@@ -20,7 +20,7 @@ public class Garden {
 	private final int MAXATT = 40;
 	private final int MAXRAND = 101;
 	
-	
+	//Constructor with a single plant and modifiers specified
 	public Garden(Biome biome, String name, Plant plant, ArrayList<String> whiteList, ArrayList<String> blackList, int blackMult, int whiteMult) {
 		this.name = name;
 		this.plants = new ArrayList<Plant>();
@@ -34,6 +34,7 @@ public class Garden {
 		this.whiteMult = whiteMult;
 		this.animals = new ArrayList<Animal>();
 	}
+	//Constructor with a single plant
 	public Garden(Biome biome, String name, Plant plant, ArrayList<String> whiteList, ArrayList<String> blackList) {
 		this.name = name;
 		this.plants = new ArrayList<Plant>();
@@ -47,6 +48,7 @@ public class Garden {
 		this.whiteMult = 1;
 		this.animals = new ArrayList<Animal>();
 	}
+	//Constructor with a list of plants and modifiers specified
 	public Garden(Biome biome, String name, ArrayList<Plant> plants, ArrayList<String> whiteList, ArrayList<String> blackList, int blackMult, int whiteMult) {
 		this.name = name;
 		this.whiteList = whiteList;
@@ -60,6 +62,7 @@ public class Garden {
 		this.whiteMult = whiteMult;
 		this.animals = new ArrayList<Animal>();
 	}
+	//Constructor with a list of plants
 	public Garden(Biome biome, String name, ArrayList<Plant> plants, ArrayList<String> whiteList, ArrayList<String> blackList) {
 		this.name = name;
 		this.whiteList = whiteList;
@@ -73,12 +76,14 @@ public class Garden {
 		this.whiteMult = 1;
 		this.animals = new ArrayList<Animal>();
 	}
+	//copies lists of another Garden
 	public void syncWhiteList(Garden other) {
 		this.whiteList = other.getWhiteList();
 	}
 	public void syncBlackList(Garden other) {
 		this.blackList = other.getBlackList();
 	}
+	//adds/removes plants from this Garden
 	public void addPlant(Plant plant) {
 		this.plants.add(plant);
 	}
@@ -92,6 +97,7 @@ public class Garden {
 			this.plants.remove(plant);
 		}
 	}
+	
 	public void calcHP() {
 		int gardenHealth = 0;
 		for(int i = 0; i < this.plants.size(); i++) {
@@ -99,6 +105,7 @@ public class Garden {
 		}
 		this.hp = gardenHealth;
 	}
+	
 	public Biome getBiome() {
 		return biome;
 	}
@@ -146,7 +153,7 @@ public class Garden {
 	public void setBlackList(ArrayList<String> blackList) {
 		this.blackList = blackList;
 	}
-	
+	//checks if an animal will spawn
 	private boolean chkAnimal() {
 		//make sure not to exceed number cap
 		if(this.animals.size() == MAXANI) {
