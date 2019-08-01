@@ -19,22 +19,16 @@ public class Garden {
 	private final int MAXANI = 10;
 	private final int MAXATT = 40;
 	private final int MAXRAND = 101;
+
 	
-	//Constructor with a single plant and modifiers specified
-	public Garden(Biome biome, String name, Plant plant, ArrayList<String> whiteList, ArrayList<String> blackList, int blackMult, int whiteMult) {
-		this.name = name;
-		this.plants = new ArrayList<Plant>();
-		this.plants.add(plant);	
-		this.hp = plant.getHP();
-		this.whiteList = whiteList;
-		this.blackList = blackList;
-		this.biome = biome;
-		this.parser = new ProcessParser(blackList, whiteList);
-		this.blackMult = blackMult;
-		this.whiteMult = whiteMult;
-		this.animals = new ArrayList<Animal>();
-	}
-	//Constructor with a single plant
+	/**
+	 * Garden constructor using a single plant.
+	 * @param biome
+	 * @param name
+	 * @param plant
+	 * @param whiteList
+	 * @param blackList
+	 */
 	public Garden(Biome biome, String name, Plant plant, ArrayList<String> whiteList, ArrayList<String> blackList) {
 		this.name = name;
 		this.plants = new ArrayList<Plant>();
@@ -48,21 +42,14 @@ public class Garden {
 		this.whiteMult = 1;
 		this.animals = new ArrayList<Animal>();
 	}
-	//Constructor with a list of plants and modifiers specified
-	public Garden(Biome biome, String name, ArrayList<Plant> plants, ArrayList<String> whiteList, ArrayList<String> blackList, int blackMult, int whiteMult) {
-		this.name = name;
-		this.whiteList = whiteList;
-		this.blackList = blackList;
-		this.biome = biome;
-		this.plants = plants;
-		this.hp = 0;
-		this.parser = new ProcessParser(blackList, whiteList);
-		this.calcHP();
-		this.blackMult = blackMult;
-		this.whiteMult = whiteMult;
-		this.animals = new ArrayList<Animal>();
-	}
-	//Constructor with a list of plants
+	/**
+	 * Garden constructor using a list of plants.
+	 * @param biome
+	 * @param name
+	 * @param plants
+	 * @param whiteList
+	 * @param blackList
+	 */
 	public Garden(Biome biome, String name, ArrayList<Plant> plants, ArrayList<String> whiteList, ArrayList<String> blackList) {
 		this.name = name;
 		this.whiteList = whiteList;
@@ -76,14 +63,15 @@ public class Garden {
 		this.whiteMult = 1;
 		this.animals = new ArrayList<Animal>();
 	}
-	//copies lists of another Garden
-	public void syncWhiteList(Garden other) {
+	/**
+	 * Synchronizes the blacklist and whitelist of this Garden with a specified other Garden.
+	 * @param other
+	 */
+	public void syncLists(Garden other) {
 		this.whiteList = other.getWhiteList();
-	}
-	public void syncBlackList(Garden other) {
 		this.blackList = other.getBlackList();
 	}
-	//adds/removes plants from this Garden
+
 	public void addPlant(Plant plant) {
 		this.plants.add(plant);
 	}
@@ -174,9 +162,13 @@ public class Garden {
 		return chk < rarSum;		
 	}
 	
-	
+	/**
+	 * Updates the state of the Garden.
+	 * Checks running processes against lists and applies growth to plants within.
+	 * Updates weather and animals by updating the Biome.
+	 */
 	public void update() {
-		//check running process against lists
+		//check running processes against lists
 		int white = this.parser.checkWhiteList();
 		int black = this.parser.checkBlackList();
 		int score = white*whiteMult - black*blackMult;
@@ -190,7 +182,7 @@ public class Garden {
 		if(this.animals.size() > 0) {
 			for(int i = 0; i < this.animals.size(); i++) {
 				Animal chk = this.animals.get(i);
-				boolean keep = chk.update(this.getHp());
+				boolean keep = chk.update();
 				if(!keep) {
 					System.out.println("REMOVING: " + i + " " + this.animals.get(i));
 					this.animals.remove(i);
@@ -200,7 +192,8 @@ public class Garden {
 		//determines if an animal is spawned, and if so, tells the biome to do so.
 		boolean chkSpawn = chkAnimal();
 		if(chkSpawn) {
-			this.animals.add(new Animal(this.biome.update(chkSpawn)));
+			int nextOpenLoc = this.animals.size()-1;
+			this.animals.add(new Animal(this.biome.update(chkSpawn), nextOpenLoc));
 			System.out.println("NEW ANIMAL: " + (this.animals.size()-1) + " " + this.animals.get(this.animals.size()-1));
 		}else {
 			this.biome.update(chkSpawn);
@@ -217,5 +210,18 @@ public class Garden {
 	}
 	public void setAnimals(ArrayList<Animal> animals) {
 		this.animals = animals;
+	}
+	/**
+	 * Gets the size of the Plants array
+	 * @return Size of Plants array
+	 */
+	public int getSize() {
+		return this.plants.size();
+	}
+	public void setBlackMult(int mult) {
+		this.blackMult = mult;
+	}
+	public void setWhiteMult(int mult) {
+		this.whiteMult = mult;
 	}
 }

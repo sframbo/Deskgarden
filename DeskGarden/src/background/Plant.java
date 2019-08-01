@@ -28,22 +28,14 @@ public class Plant {
 	private int maxHP;
 	private int type;
 	private String name;
-	
-	public Plant(){
-		this.setRarity(1);
-		this.setAnimalAttract(1);
-		this.setHP(1);
-		this.setGrowthStage(1);
-		this.setGrowThresh(1);
-		this.setGrowPoint(1);
-		this.setGrowCap(1);
-		this.setMaxHP(1);
-		this.setType(Plant.ROSE);
-		this.setName(Plant.ROSE_NAME);
-	}
-	
-
-	public Plant(int type) {
+	private int locID;
+	/**
+	 * Creates a new Plant of type specified at location specified
+	 * @param type Plant type id int
+	 * @param locID
+	 */
+	public Plant(int type, int locID) {
+		this.setLocID(locID);
 		this.setRarity(DEFRAR);
 		this.setAnimalAttract(DEFATT);
 		this.setHP(DEFHP);
@@ -155,5 +147,15 @@ public class Plant {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+
+	public int getLocID() {
+		return locID;
+	}
+
+
+	public void setLocID(int locID) {
+		this.locID = locID;
 	}
 }

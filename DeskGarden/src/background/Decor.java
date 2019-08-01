@@ -5,7 +5,8 @@ public class Decor {
 	private int type;
 	
 	public Decor(int type, int locID) {
-		
+		this.setType(type);
+		this.setLocID(locID);
 	}
 
 	public int getType() {

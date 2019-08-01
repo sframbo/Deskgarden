@@ -40,7 +40,9 @@ public class Weather{
 	public int getWeatherType() {
 		return weatherType;
 	}
-	
+	/**
+	 * Updates weather to next valid state based on thresholds specified in constants.
+	 */
 	public void update() {
 		//increase time spent as current weather
 		this.timer++;

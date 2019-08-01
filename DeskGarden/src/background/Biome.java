@@ -24,7 +24,10 @@ public class Biome {
 	private int biomeType;
 	private Weather weather;
 	private ArrayList<Integer> allowedAnimals;
-	
+	/**
+	 * Biome constructor, assigning a list of allowable animal spawns based on indicated Biome type.
+	 * @param biomeType
+	 */
 	public Biome(int biomeType) {
 		this.weather = new Weather(Weather.CLEAR);
 		if(biomeType <= LAST_TYPE) {
@@ -104,7 +107,11 @@ public class Biome {
 	}
 	
 	
-	
+	/**
+	 * Updates Biome, determining the weather and returning which animal to spawn if any.
+	 * @param aniSpawn
+	 * @return animal type int to spawn
+	 */
 	public int update(boolean aniSpawn) {
 		//Controls weather to appropriate biome type
 		this.weather.update();

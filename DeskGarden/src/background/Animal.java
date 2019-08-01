@@ -16,16 +16,15 @@ public class Animal {
 	private int rarity;
 	private int type;
 	private String name;
-	
-	public Animal() {
-		this.setDuration(DEFDURA);
-		this.setRarity(DEFRAR);
-		this.setType(Animal.SQUIRREL);
-		this.setName("SQUIRREL");
-	}
-	
-	public Animal(int type) {
-		this.type = type;
+	private int locID;	
+	/**
+	 * Creates a new animal of type specified and at location specified.
+	 * @param type Animal constant ID value
+	 * @param locID
+	 */
+	public Animal(int type, int locID) {
+		this.setType(type);
+		this.setLocID(locID);
 		switch(type) {
 		case Animal.RAVEN:
 			this.setDuration(DEFDURA);
@@ -62,7 +61,7 @@ public class Animal {
 		this.duration = duration;
 	}
 	
-	public boolean update(int hp) {
+	public boolean update() {
 		if(this.duration == 0) {
 			return false;
 		}else {
@@ -97,5 +96,13 @@ public class Animal {
 		default: 
 			return DEFAULTRAR;
 		}
+	}
+
+	public int getLocID() {
+		return locID;
+	}
+
+	public void setLocID(int locID) {
+		this.locID = locID;
 	}
 }

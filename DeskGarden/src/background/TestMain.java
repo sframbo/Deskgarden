@@ -12,13 +12,8 @@ public class TestMain {
 
 		noList.add("firefox.exe");
 		
-		int growCap = 4;
-		int growThresh = 5;
-		int animalAttract = 30;
-		int rarity = 20;
-		int hp = 200;
-		Plant plant = new Plant(Plant.WILLOW);
-		Plant plant2 = new Plant(Plant.ROSE);
+		Plant plant = new Plant(Plant.WILLOW,0);
+		Plant plant2 = new Plant(Plant.ROSE,1);
 		Biome biome = new Biome(Biome.FOREST);
 		
 		ArrayList<Plant> plantList = new ArrayList<Plant>();
